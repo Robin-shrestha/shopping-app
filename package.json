@@ -1,0 +1,32 @@
+{
+  "name": "django-shopper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --watch --config webpack.config.js ",
+    "dev": "webpack --mode development --watch ./shopper/frontend/src/index.js --output ./shopper/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./shopper/frontend/src/index.js --output ./shopper/frontend/static/frontend/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^4.2.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.3.0",
+    "react-dom": "^16.13.1"
+  }
+}
