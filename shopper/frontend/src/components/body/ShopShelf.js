@@ -1,57 +1,72 @@
-import React from "react";
-import ShelfItem from "./ShelfItem";
-import "./shelf.css";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { loading, doneLoading, error } from "../../actions/LoadingErrorActions";
+import { addToShelf } from "../../actions/StockItemAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const ShopShelf = () => {
-  const item = [
-    {
-      id: 1,
-      product_name: "tshirt",
-      type: "t-shirt",
-      price: 20,
-      path: "./",
-    },
-    {
-      id: 2,
-      product_name: "tshirt",
-      type: "t-shirt",
-      price: 50,
-    },
-    {
-      id: 3,
-      product_name: "tshirt",
-      type: "t-shirt",
-      price: 200,
-    },
-    {
-      id: 4,
-      product_name: "tshirt",
-      type: "t-shirt",
-      price: 500,
-    },
-  ];
+  const shelfState = useSelector((state) => state.ShelfItems);
+  const loadingAndError = useSelector((state) => state.LoadingAndError);
+
+  const dispatch = useDispatch();
+
+  const FetchShelfItemData = () => (dispatch) => {
+    dispatch(loading());
+    axios
+      .get("/apis/api/saleitems")
+      .then((res) => {
+        dispatch(addToShelf(res.data));
+        dispatch(doneLoading());
+      })
+      .catch((err) => {
+        dispatch(error(err.message));
+        dispatch(doneLoading);
+      });
+  };
+
+  useEffect(() => {
+    dispatch(FetchShelfItemData());
+  }, []);
+
+  console.log(shelfState);
+  console.log(loadingAndError);
+
   return (
-    <div>
-      <table className="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Product name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Type</th>
-            <th scope="col"></th>
-            <th scope="col">qty</th>
-            <th scope="col"></th>
-            <th scope="col">Total Price</th>
-            <th scope="col">ADD to cart</th>
-          </tr>
-        </thead>
-        <tbody>
-          {item.map((item) => {
-            return <ShelfItem key={item.id} product={item} />;
+    <>
+      <div>
+        {loadingAndError.loading ? <p>...loading</p> : null}
+        {loadingAndError.error ? <p>{loadingAndError.error}</p> : null}
+      </div>
+      <div className=".container-fluid p-3">
+        <ul className="row">
+          {shelfState.map((item) => {
+            return (
+              <li
+                key={item.id}
+                className="card ml-2 mr-2"
+                style={{ width: "18rem" }}
+              >
+                <img
+                  className="card-img-top"
+                  src={item.image_path}
+                  alt="Card image cap"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{item.product_name}</h5>
+                  <p className="card-text">
+                    <span>Rs.{item.price}</span>{" "}
+                  </p>
+                  <p>{item.brand ? <strong>{item.brand}</strong> : null}</p>
+                  <a href="#" className="btn btn-primary">
+                    Add to Cart
+                  </a>
+                </div>
+              </li>
+            );
           })}
-        </tbody>
-      </table>
-    </div>
+        </ul>
+      </div>
+    </>
   );
 };
 

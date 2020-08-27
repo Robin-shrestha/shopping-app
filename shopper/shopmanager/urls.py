@@ -10,4 +10,4 @@ urlpatterns = [
     path('account/', include('users.urls')),
     path('apis/', include('shopapi.urls')),
 
-] 
+]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
