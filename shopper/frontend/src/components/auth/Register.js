@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registration } from "../../actions/AuthActions";
+import "./auth.css";
 
 const register = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.Auth.isAuthenticated);
+  const loadAndError = useSelector((state) => state.LoadingAndError);
 
   const [registerdetail, setRegisterDetail] = useState({
     username: "",
@@ -38,6 +40,7 @@ const register = () => {
         <div className="fadeIn first">
           <img src="..." id="icon" alt="User Icon" />
         </div>
+        {loadAndError.error ? <p>{loadAndError.error}</p> : null}
 
         <form onSubmit={onSubmit}>
           <input
