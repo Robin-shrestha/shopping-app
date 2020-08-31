@@ -1,12 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import LoadingErrorReducer from "./LoadingErrorReducer";
-import ShelfItemReducer from "./stockItemReducer";
+import LoadingAndError from "./LoadingErrorReducer";
+import ShelfItems from "./stockItemReducer";
+import Auth from "./AuthReducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
-  LoadingAndError: LoadingErrorReducer,
-  ShelfItems: ShelfItemReducer,
+  LoadingAndError,
+  ShelfItems,
+  Auth,
 });
 const middlewares = [thunk];
 

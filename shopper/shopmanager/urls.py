@@ -6,8 +6,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('frontend.urls')),
+    path('', include('users.urls')),
+    path('', include('shopapi.urls')),
     path('admin/', admin.site.urls),
-    path('account/', include('users.urls')),
-    path('apis/', include('shopapi.urls')),
+
 
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

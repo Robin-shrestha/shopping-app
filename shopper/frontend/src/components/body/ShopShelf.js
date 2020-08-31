@@ -13,7 +13,7 @@ const ShopShelf = () => {
   const FetchShelfItemData = () => (dispatch) => {
     dispatch(loading());
     axios
-      .get("/apis/api/saleitems")
+      .get("/api/saleitems")
       .then((res) => {
         dispatch(addToShelf(res.data));
         dispatch(doneLoading());
@@ -28,8 +28,6 @@ const ShopShelf = () => {
     dispatch(FetchShelfItemData());
   }, []);
 
-  console.log(shelfState);
-  console.log(loadingAndError);
 
   return (
     <>

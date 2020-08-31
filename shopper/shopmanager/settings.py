@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework', 
     'users',
     'frontend',
+    'knox',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,7 @@ STATICFILES_DIRS  = [
 #media files
 MEDIA_ROOT = BASE_DIR/"shopapi/assets"
 MEDIA_URL = '/assets/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+}
