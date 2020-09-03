@@ -7,7 +7,7 @@ const initialState = {
 const LoadingErrorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ON_LOADING:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: "" };
     case DONE_LOADING:
       return { ...state, loading: false };
     case ON_ERROR:

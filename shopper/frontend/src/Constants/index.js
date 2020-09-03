@@ -15,3 +15,9 @@ export const LOGIN_fALIED = "LOGIN_fALIED";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILED = "REGISTER_FAILED";
+
+//cart actions
+export const GET_USER = "GET_USER";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const CLEAR_ITEMS_IN_CART = "CLEAR_ITEMS_IN_CART";

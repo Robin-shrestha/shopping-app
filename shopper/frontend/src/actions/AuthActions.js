@@ -7,6 +7,7 @@ import {
   USER_LOADED,
   USER_LOADING,
   AUTH_ERROR,
+  CLEAR_ITEMS_IN_CART,
 } from "../Constants";
 import { loading, doneLoading, error } from "./LoadingErrorActions";
 import axios from "axios";
@@ -94,6 +95,7 @@ export const logout = () => (dispatch, getState) => {
     .post("/api/auth/logout", null, tokenConfig(getState))
     .then((res) => {
       dispatch({ type: LOGOUT_SUCCESS });
+      dispatch({ type: CLEAR_ITEMS_IN_CART });
       dispatch(doneLoading());
     })
     .catch((err) => {

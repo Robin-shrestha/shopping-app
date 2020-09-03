@@ -16,26 +16,24 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
-      return {
-        ...state,
-        user: action.payload.user,
-        isAuthenticated: true,
-      };
     case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS: {
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
-        user: action.payload.user,
+        // token: action.payload.token,
+        // user: action.payload.user,
+        ...action.payload,
         isAuthenticated: true,
       };
+    }
     case USER_LOADED:
       return { ...state, isAuthenticated: true, user: action.payload };
     case LOGIN_fALIED:
     case AUTH_ERROR:
     case REGISTER_FAILED:
     case LOGOUT_SUCCESS:
+      localStorage.removeItem("token");
       return {
         token: null,
         isAuthenticated: false,

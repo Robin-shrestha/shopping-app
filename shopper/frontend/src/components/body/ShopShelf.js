@@ -1,33 +1,26 @@
 import React, { useEffect } from "react";
-import axios from "axios";
-import { loading, doneLoading, error } from "../../actions/LoadingErrorActions";
-import { addToShelf } from "../../actions/StockItemAction";
 import { useSelector, useDispatch } from "react-redux";
+import { Button } from "react-bootstrap";
+import { link, Link } from "react-router-dom";
+
+import { FetchShelfItem } from "../../actions/StockItemAction";
+import { addToCart } from "../../actions/CartActions";
 
 const ShopShelf = () => {
   const shelfState = useSelector((state) => state.ShelfItems);
   const loadingAndError = useSelector((state) => state.LoadingAndError);
-
+  const isAuthenticated = useSelector((state) => state.Auth.isAuthenticated);
   const dispatch = useDispatch();
 
-  const FetchShelfItemData = () => (dispatch) => {
-    dispatch(loading());
-    axios
-      .get("/api/saleitems")
-      .then((res) => {
-        dispatch(addToShelf(res.data));
-        dispatch(doneLoading());
-      })
-      .catch((err) => {
-        dispatch(error(err.message));
-        dispatch(doneLoading);
-      });
-  };
-
   useEffect(() => {
-    dispatch(FetchShelfItemData());
+    dispatch(FetchShelfItem());
   }, []);
 
+  // const addItem = (item) => (e) => {
+  //   e.preventDefault();
+  //   console.log("asds");
+  //   dispatch(addToCart(item));
+  // };
 
   return (
     <>
@@ -50,14 +43,18 @@ const ShopShelf = () => {
                   alt="Card image cap"
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{item.product_name}</h5>
+                  <Link to={{ pathname: `/item/${item.id}`, state: item }}>
+                    <h5 className="card-title ">{item.product_name}</h5>
+                  </Link>
                   <p className="card-text">
                     <span>Rs.{item.price}</span>{" "}
                   </p>
                   <p>{item.brand ? <strong>{item.brand}</strong> : null}</p>
-                  <a href="#" className="btn btn-primary">
-                    Add to Cart
-                  </a>
+                  {/* {isAuthenticated ? (
+                    <Button onClick={addItem(item)} className="btn btn-primary">
+                      Add to Cart
+                    </Button>
+                  ) : null} */}
                 </div>
               </li>
             );

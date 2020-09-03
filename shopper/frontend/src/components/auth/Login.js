@@ -31,7 +31,7 @@ const Login = () => {
   };
   return (
     <div className="wrapper fadeInDown">
-      {isAuthenticated ? <Redirect to="/" /> : null}
+      {isAuthenticated ? <Redirect to="/" replace /> : null}
       <div id="formContent">
         <div className="fadeIn first">
           <img src="..." id="icon" alt=" Icon" />

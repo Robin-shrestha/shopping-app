@@ -21,6 +21,11 @@ const Header = () => {
         <a className="navbar-brand" href="#">
           dont shop here its a scam
         </a>
+        {isAuthenticated ? (
+          <Link className=" nav-link" to="/cart">
+            My Cart
+          </Link>
+        ) : null}
         <button
           className="navbar-toggler"
           type="button"
@@ -55,7 +60,12 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={() => onClick()}>
+                <Link
+                  className="nav-link"
+                  to="/"
+                  onClick={() => onClick()}
+                  replace
+                >
                   Logout
                 </Link>
               </li>
