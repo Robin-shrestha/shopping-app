@@ -7,5 +7,4 @@ routes.register('api/saleitems', SaleItemViewSet, basename='saleitem')
 routes.register('api/salehistory', SaleHistoryViewSet, basename='salehistory')
 urlpatterns = [ path('',include(routes.urls))
 
-
 ]

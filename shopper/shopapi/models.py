@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your models here.
 class SaleItems(models.Model):
@@ -18,4 +19,8 @@ class SaleItems(models.Model):
 class SaleHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(SaleItems, on_delete=models.RESTRICT, default=None)
+    date_bought = models.DateTimeField(auto_now_add=True)
 
+
+    def __str__(self):
+        return f'{self.date_bought}, {self.product}, {self.user}' 
