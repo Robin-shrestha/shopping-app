@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
+// components
 import Header from "./components/Header/Header";
 import ShopShelf from "./components/body/ShopShelf";
-import { Switch, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import PrivateRoute from "./components/utils/PrivateRoute";
 import Cartdashboard from "./components/body/cart/CartDashboard";
 import ShelfItem from "./components/body/ShelfItem";
+// utils
+import PrivateRoute from "./components/utils/PrivateRoute";
+import onStart from "./components/utils/OnStart";
+import { loadUser } from "./actions/AuthActions";
+import { useDispatch } from "react-redux";
+
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(loadUser());
+    }
+  }, []);
   return (
     <div>
       <Header />
