@@ -12,15 +12,15 @@ class SaleItems(models.Model):
     image_path = models.ImageField(upload_to='images/product_image')
     date_added = models.DateField(auto_now_add=True)
     in_stock = models.BooleanField(default=True)
+
     def __str__(self):
-        return f"{self.product_name}, price={self.price}"
+        return f"{self.product_name}"
 
 
 class SaleHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     product = models.ForeignKey(SaleItems, on_delete=models.RESTRICT, default=None)
     date_bought = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
-        return f'{self.date_bought}, {self.product}, {self.user}' 
+        return f' {self.product}, {self.user}, {self.id}' 

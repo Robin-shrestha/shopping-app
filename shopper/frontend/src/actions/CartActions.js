@@ -1,4 +1,9 @@
-import { GET_USER, ADD_TO_CART, REMOVE_FROM_CART } from "../Constants";
+import {
+  GET_USER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  BUY_ITEMS,
+} from "../Constants";
 import { loading, doneLoading, error } from "./LoadingErrorActions";
 import axios from "axios";
 import { tokenConfig } from "./AuthActions";
@@ -7,7 +12,7 @@ export const getUser = () => (dispatch, getState) => {
   dispatch(loading());
 
   axios
-    .get("api/auth/user", tokenConfig(getState))
+    .get("/api/auth/user", tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_USER,
@@ -35,4 +40,20 @@ export const addToCart = (payload) => (dispatch) => {
     payload,
   });
   dispatch(doneLoading());
+};
+
+export const buyItems = (products) => (dispatch, getState) => {
+  dispatch(loading());
+  const body = JSON.stringify(products);
+  // console.log(body);
+
+  axios
+    .post("/api/viewset/salehistory/", body, tokenConfig(getState))
+    .then((res) => {
+      console.log(res);
+      console.log("add message bought ");
+    })
+    .catch((err) => {
+      dispatch(error(err.message));
+    });
 };

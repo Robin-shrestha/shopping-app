@@ -3,6 +3,7 @@ import {
   GET_USER,
   REMOVE_FROM_CART,
   CLEAR_ITEMS_IN_CART,
+  BUY_ITEMS,
 } from "../Constants";
 
 // format like this initialState = {
@@ -40,6 +41,8 @@ const cartReducer = (state = initialState, action) => {
       };
     case CLEAR_ITEMS_IN_CART:
       return { user: {}, items: [] };
+    case BUY_ITEMS:
+      return { ...state, items: [] };
     default:
       return state;
   }
